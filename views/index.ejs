@@ -1,0 +1,46 @@
+<%- include('partials/header') %>
+
+<div class="container">
+  <h1>Todo List</h1>
+
+  <!-- Alert (optional) -->
+  <% if (typeof alert !== 'undefined') { %>
+    <div class="alert"><%= alert %></div>
+  <% } %>
+
+  <!-- Add Task Form -->
+  <form action="/add" method="POST">
+    <input type="text" name="title" placeholder="Task Title" required>
+    <select name="priority">
+      <option value="Urgent">Urgent</option>
+      <option value="High">High</option>
+      <option value="Low">Low</option>
+    </select>
+    <button type="submit">+ Add Task</button>
+  </form>
+
+  <!-- Task List -->
+  <ul>
+    <% tasks.forEach(task => { %>
+      <li>
+        <!-- Edit Form -->
+        <form action="/edit/<%= task._id %>?_method=POST" method="POST">
+          <input type="text" name="title" value="<%= task.title %>" required>
+          <select name="priority">
+            <option value="Urgent" <%= task.priority === 'Urgent' ? 'selected' : '' %>>Urgent</option>
+            <option value="High" <%= task.priority === 'High' ? 'selected' : '' %>>High</option>
+            <option value="Low" <%= task.priority === 'Low' ? 'selected' : '' %>>Low</option>
+          </select>
+          <button title="Edit">✏️</button>
+        </form>
+
+        <!-- Delete Form -->
+        <form action="/delete/<%= task._id %>?_method=POST" method="POST">
+          <button title="Delete">🗑️</button>
+        </form>
+      </li>
+    <% }) %>
+  </ul>
+</div>
+
+<%- include('partials/footer') %>

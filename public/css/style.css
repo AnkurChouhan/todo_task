@@ -1,0 +1,184 @@
+/* Variables */
+:root {
+  --primary: #4CAF50;
+  --danger: #e53935;
+  --warning: #ff9800;
+  --info: #2196f3;
+  --background: linear-gradient(to right, #e3f2fd, #f1f8e9);
+  --card-bg: #ffffff;
+  --text: #333;
+  --border: #e0e0e0;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;  --radius: 8px;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Base Styles */
+body {
+  font-family: var(--font);
+  background: var(--background);
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* Card Container */
+.container {
+  max-width: 800px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  color: var(--primary);
+}
+
+/* Alert */
+.alert {
+  background-color: var(--warning);
+  color: white;
+  padding: 0.8rem 1.2rem;
+  border-radius: var(--radius);
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+/* Input Form Styles */
+form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  align-items: center;
+}
+
+input[type="text"],
+select {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+select:focus {
+  border-color: var(--primary);
+  outline: none;
+}
+
+/* Buttons */
+button {
+  padding: 0.75rem 1.2rem;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button[type="submit"] {
+  background-color: var(--primary);
+  color: #fff;
+}
+
+button[title="Edit"] {
+  background-color: var(--info);
+  color: #fff;
+}
+
+button[title="Delete"] {
+  background-color: var(--danger);
+  color: #fff;
+}
+
+button:hover {
+  transform: scale(1.03);
+}
+
+/* Task List */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  background: #fafafa;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  margin-bottom: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Task Row Forms */
+li form {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+/* Edit Form Styles */
+li > form:first-of-type {
+  flex: 1;
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+li > form:first-of-type input,
+li > form:first-of-type select {
+  flex: 1;
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+  .container {
+    margin: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  li {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  li form {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1.2rem;
+  }
+
+  li form {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+}
