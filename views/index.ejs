@@ -37,11 +37,10 @@
             <option value="High" <%= task.priority === 'High' ? 'selected' : '' %>>High</option>
             <option value="Low" <%= task.priority === 'Low' ? 'selected' : '' %>>Low</option>
           </select>
-          <button type="submit" class="save-btn" style="display:none;" title="Save">✅</button>
-        </form>
 
-        <!-- Pencil Button to Enable Editing -->
-        <button type="button" class="edit-btn" title="Edit" onclick="enableEdit(this)">✏️</button>
+          <!-- Pencil icon that also submits form when in edit mode -->
+          <button type="button" class="edit-btn" title="Edit" onclick="handleEditOrSubmit(this)">✏️</button>
+        </form>
 
         <!-- Delete Form -->
         <form 
@@ -57,20 +56,21 @@
 </div>
 
 <script>
-  function enableEdit(button) {
+  function handleEditOrSubmit(button) {
     const li = button.closest('li');
     const form = li.querySelector('.edit-form');
     const titleInput = form.querySelector('input[name="title"]');
     const prioritySelect = form.querySelector('select[name="priority"]');
-    const saveBtn = form.querySelector('.save-btn');
 
-    // Enable editing fields
-    titleInput.removeAttribute('readonly');
-    prioritySelect.removeAttribute('disabled');
-    saveBtn.style.display = 'inline';
-
-    // Focus on title input
-    titleInput.focus();
+    // If inputs are readonly/disabled, enable them (edit mode)
+    if (titleInput.hasAttribute('readonly')) {
+      titleInput.removeAttribute('readonly');
+      prioritySelect.removeAttribute('disabled');
+      titleInput.focus();
+    } else {
+      // Already editable, submit the form (save mode)
+      form.submit();
+    }
   }
 </script>
 
