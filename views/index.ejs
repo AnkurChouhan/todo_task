@@ -4,12 +4,12 @@
   <h1>Todo List</h1>
 
   <!-- Alert (optional) -->
-  <% if (typeof alert !== 'undefined') { %>
+  <% if (typeof alert !== 'undefined' && alert) { %>
     <div class="alert"><%= alert %></div>
   <% } %>
 
   <!-- Add Task Form -->
-  <form action="/add" method="POST">
+  <form action="/add" method="POST" class="add-form">
     <input type="text" name="title" placeholder="Task Title" required>
     <select name="priority">
       <option value="Urgent">Urgent</option>
@@ -20,25 +20,35 @@
   </form>
 
   <!-- Task List -->
-  <ul>
+  <ul class="task-list">
     <% tasks.forEach(task => { %>
       <li data-id="<%= task._id %>">
         <!-- Edit Form -->
-        <form action="/<%= task._id %>?_method=PUT" method="POST" class="edit-form" style="display: inline;">
-          <input type="text" name="title" value="<%= task.title %>" readonly required>
+        <form action="/<%= task._id %>?_method=PUT" method="POST" class="edit-form">
+          <input 
+            type="text" 
+            name="title" 
+            value="<%= task.title %>" 
+            readonly 
+            required
+          >
           <select name="priority" disabled>
             <option value="Urgent" <%= task.priority === 'Urgent' ? 'selected' : '' %>>Urgent</option>
             <option value="High" <%= task.priority === 'High' ? 'selected' : '' %>>High</option>
             <option value="Low" <%= task.priority === 'Low' ? 'selected' : '' %>>Low</option>
           </select>
-          <button type="submit" class="save-btn" title="Save" style="display:none;">✅</button>
+          <button type="submit" class="save-btn" style="display:none;" title="Save">✅</button>
         </form>
 
-        <!-- Pencil icon to enable edit -->
-        <button class="edit-btn" title="Edit" onclick="enableEdit(this)">✏️</button>
+        <!-- Pencil Button to Enable Editing -->
+        <button type="button" class="edit-btn" title="Edit" onclick="enableEdit(this)">✏️</button>
 
         <!-- Delete Form -->
-        <form action="/<%= task._id %>?_method=DELETE" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this task?')">
+        <form 
+          action="/<%= task._id %>?_method=DELETE" 
+          method="POST" 
+          style="display:inline;" 
+          onsubmit="return confirm('Are you sure you want to delete this task?')">
           <button title="Delete">🗑️</button>
         </form>
       </li>
@@ -54,12 +64,12 @@
     const prioritySelect = form.querySelector('select[name="priority"]');
     const saveBtn = form.querySelector('.save-btn');
 
-    // Enable editing
+    // Enable editing fields
     titleInput.removeAttribute('readonly');
     prioritySelect.removeAttribute('disabled');
     saveBtn.style.display = 'inline';
 
-    // Focus the title field for convenience
+    // Focus on title input
     titleInput.focus();
   }
 </script>
