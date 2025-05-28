@@ -22,28 +22,43 @@
   <!-- Task List -->
   <ul>
     <% tasks.forEach(task => { %>
-      <li>
-        <!-- Edit Form -->
-<form action="/<%= task._id %>?_method=PUT" method="POST">
-  <input type="text" name="title" value="<%= task.title %>" required>
-  <select name="priority">
-    <option value="Urgent" <%= task.priority === 'Urgent' ? 'selected' : '' %>>Urgent</option>
-    <option value="High" <%= task.priority === 'High' ? 'selected' : '' %>>High</option>
-    <option value="Low" <%= task.priority === 'Low' ? 'selected' : '' %>>Low</option>
-  </select>
-  <button title="Edit">✏️</button>
-</form>
+      <li data-id="<%= task._id %>">
+        <form action="/<%= task._id %>?_method=PUT" method="POST" class="edit-form">
+          <input type="text" name="title" value="<%= task.title %>" readonly required>
+          <select name="priority" disabled>
+            <option value="Urgent" <%= task.priority === 'Urgent' ? 'selected' : '' %>>Urgent</option>
+            <option value="High" <%= task.priority === 'High' ? 'selected' : '' %>>High</option>
+            <option value="Low" <%= task.priority === 'Low' ? 'selected' : '' %>>Low</option>
+          </select>
+          <button type="submit" class="save-btn" style="display:none;">✅</button>
+        </form>
 
+        <button class="edit-btn" title="Edit" onclick="enableEdit(this)">✏️</button>
 
         <!-- Delete Form -->
-<form action="/<%= task._id %>?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure you want to delete this task?')">
-  <button title="Delete">🗑️</button>
-</form>
-
+        <form action="/<%= task._id %>?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure you want to delete this task?')" style="display:inline;">
+          <button title="Delete">🗑️</button>
         </form>
       </li>
     <% }) %>
   </ul>
 </div>
+
+<script>
+  function enableEdit(button) {
+    const li = button.closest('li');
+    const form = li.querySelector('.edit-form');
+    const titleInput = form.querySelector('input[name="title"]');
+    const prioritySelect = form.querySelector('select[name="priority"]');
+    const saveBtn = form.querySelector('.save-btn');
+
+    // Enable fields
+    titleInput.removeAttribute('readonly');
+    prioritySelect.removeAttribute('disabled');
+    saveBtn.style.display = 'inline';
+
+    titleInput.focus();
+  }
+</script>
 
 <%- include('partials/footer') %>
