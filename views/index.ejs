@@ -24,19 +24,22 @@
     <% tasks.forEach(task => { %>
       <li>
         <!-- Edit Form -->
-        <form action="/edit/<%= task._id %>?_method=POST" method="POST">
-          <input type="text" name="title" value="<%= task.title %>" required>
-          <select name="priority">
-            <option value="Urgent" <%= task.priority === 'Urgent' ? 'selected' : '' %>>Urgent</option>
-            <option value="High" <%= task.priority === 'High' ? 'selected' : '' %>>High</option>
-            <option value="Low" <%= task.priority === 'Low' ? 'selected' : '' %>>Low</option>
-          </select>
-          <button title="Edit">✏️</button>
-        </form>
+<form action="/<%= task._id %>?_method=PUT" method="POST">
+  <input type="text" name="title" value="<%= task.title %>" required>
+  <select name="priority">
+    <option value="Urgent" <%= task.priority === 'Urgent' ? 'selected' : '' %>>Urgent</option>
+    <option value="High" <%= task.priority === 'High' ? 'selected' : '' %>>High</option>
+    <option value="Low" <%= task.priority === 'Low' ? 'selected' : '' %>>Low</option>
+  </select>
+  <button title="Edit">✏️</button>
+</form>
+
 
         <!-- Delete Form -->
-        <form action="/delete/<%= task._id %>?_method=POST" method="POST">
-          <button title="Delete">🗑️</button>
+<form action="/<%= task._id %>?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure you want to delete this task?')">
+  <button title="Delete">🗑️</button>
+</form>
+
         </form>
       </li>
     <% }) %>
