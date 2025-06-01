@@ -6,11 +6,10 @@ const taskRoutes = require('./routes/taskRoutes');
 
 const app = express();
 
-// Connect to MongoDB
+// MongoDB Initials
 (async () => {
   try {
     await mongoose.connect('mongodb+srv://ankurchouhanofficial:Txc1xnhu5ktZFnWz@cluster777.i70wgbx.mongodb.net/', {
-      // no options needed as of Mongoose 6+
     });
     console.log('✅ MongoDB connected');
   } catch (err) {
@@ -18,11 +17,11 @@ const app = express();
   }
 })();
 
-// Set EJS as the template engine
+// EJS Engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Serve static files from /public (css, js, images)
+// Serve static files from the directory
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Middleware to parse URL-encoded bodies (form data)
@@ -39,7 +38,7 @@ app.use((req, res) => {
   res.status(404).send('404 - Page not found');
 });
 
-// Start the server for Render
+// Live Render.com Server to connect
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(`🚀 Server started on http://localhost:${PORT}`);
